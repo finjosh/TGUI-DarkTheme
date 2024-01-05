@@ -9,11 +9,11 @@ PROJECT:=main
 # the directory in which all .o and .d files will be made
 OBJ_O_DIR:=bin
 # assumes that source directories are the same as include
-SRCDIRS:=. src src/Networking
+SRCDIRS:=.
 # the include flags for compilation
 INCLUDES:=-I /VSCodeFolder/Libraries/SFML-2.6.1/include -D SFML_STATIC -I /VSCodeFolder/Libraries/TGUI-1.1/include -I $(project_dir)
 # the paths to libs for linking
-LIBS=-L /VSCodeFolder/Libraries/SFML-2.6.1/lib -L /VSCodeFolder/Libraries/TGUI-1.1/lib -L $(project_dir) -L lib/Utils -L lib/Utils/Debug -L lib
+LIBS=-L /VSCodeFolder/Libraries/SFML-2.6.1/lib -L /VSCodeFolder/Libraries/TGUI-1.1/lib -L $(project_dir)
 # linker flags for compilation
 # add "-mwindows" to disable the terminal
 LINKERFLAGS=$(LIBS) \
@@ -22,10 +22,6 @@ LINKERFLAGS=$(LIBS) \
 			-lws2_32 -lflac -lvorbisenc -lvorbisfile -lvorbis \
 			-logg -lopenal32 -lopengl32 -lwinmm -lgdi32 -lfreetype \
 			-lstdc++ \
-			-l:CommandPrompt.a -l:CommandHandler.a \
-			-l:TFuncDisplay.a -l:VarDisplay.a -l:LiveVar.a \
-			-l:iniParser.a -l:Log.a \
-			-l:EventHelper.a -l:TerminatingFunction.a -l:StringHelper.a \
 			# -mwindows
 
 # the directory for lib files
