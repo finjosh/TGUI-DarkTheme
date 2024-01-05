@@ -33,12 +33,12 @@ BorderColorDown = rgb(135,135,135); // *
 // Scrollbar
 ScrollbarWidth = 16;
 // Also used on other widgets
-TrackColor = rgb(50,50,50);
-TrackColorHover = rgb(55,55,55);
-SelectedTrackColor = rgb(65,65,65);
+TrackColor = rgb(25,25,25); // *
+TrackColorHover =  rgb(45,45,45); // *
+SelectedTrackColor = rgb(65,65,65); // *
 // Thumb - Also used on other widgets (slider, range slider, ect.)
-ThumbColor = rgb(25,25,25); // *
-ThumbColorHover = rgb(35,35,35); // *
+ThumbColor = rgb(50,50,50); // *
+ThumbColorHover = rgb(55,55,55); // *
 
 // Arrow
 ArrowColorDisabled = rgb(105,105,105);
@@ -62,6 +62,7 @@ HeaderBackgroundColor = rgb(25,25,25); // *
 Padding = 0; // *
 PaddingBetweenButtons = 1; // *
 ButtonDistanceFromSide = 3; // *
+RoundedBorderRadius = 4; // *
 
 Button {
     BackgroundColorDown = &BackgroundColorDown;
@@ -70,6 +71,12 @@ Button {
     BorderColorFocused = &BorderColorFocused;
     BorderColorHover = &BorderColorHover;
     TextColorDown = &TextColorDown;
+    RoundedBorderRadius = &RoundedBorderRadius;
+}
+
+Panel
+{
+    RoundedBorderRadius = &RoundedBorderRadius;
 }
 
 ChatBox
@@ -169,6 +176,7 @@ ToggleButton
     BorderColorDisabled = &BorderColorDisabled;
     BackgroundColorDown = &BackgroundColorDown;
     BackgroundColorDownHover = &BackgroundColorDownHover;
+    RoundedBorderRadius = 3;
 }
 
 ChildWindow

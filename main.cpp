@@ -29,7 +29,7 @@ void runExample(tgui::Gui& gui)
     gui.getWidgets().back()->setPosition(10,600);
     gui.getWidgets().back()->cast<tgui::EditBox>()->setDefaultText("Edit Box");
     gui.add(tgui::FileDialog::create("File Dialog"));
-    gui.getWidgets().back()->setPosition(900,200);
+    gui.getWidgets().back()->setPosition(1100,200);
     gui.add(tgui::Knob::create());
     gui.getWidgets().back()->setPosition(300,50);
     gui.add(tgui::Label::create("Label"));
@@ -89,6 +89,11 @@ void runExample(tgui::Gui& gui)
     temp->addItem({"Tree2", "Item1", "Another Item"});
     temp->addItem({"Tree2", "Item4", "Another Item"});
     temp->addItem({"Tree2", "Item6", "Why"});
+    gui.add(tgui::ScrollablePanel::create({"15%","15%"}));
+    gui.getWidgets().back()->setPosition(700,200);
+    gui.getWidgets().back()->cast<tgui::ScrollablePanel>()->add(tgui::FileDialog::create()); // Adding a bigger widget so the scroll bars show
+    gui.add(tgui::Panel::create({200,200}));
+    gui.getWidgets().back()->setPosition(500,375);
 }
 
 int main()
