@@ -11,4 +11,4 @@ SFML:
 TGUI:
   - Version: 1.x Dev branch from 12/30/2023
 
-![image](https://github.com/finjosh/TGUI-DarkTheme/assets/109707607/b92887c9-6bea-48f4-84af-ba9560309d81)
+![image](https://github.com/finjosh/TGUI-DarkTheme/assets/109707607/c8537943-41ba-4bf0-b363-31081831e3f4)
