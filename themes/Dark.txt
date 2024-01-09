@@ -65,11 +65,18 @@ ButtonDistanceFromSide = 3; // *
 RoundedBorderRadius = 4; // *
 
 Button {
+    BackgroundColor = &BackgroundColor;
+    BackgroundColorDisabled = &BackgroundColorDisabled;
     BackgroundColorDown = &BackgroundColorDown;
+    BackgroundColorDownHover = &BackgroundColorDownHover;
+    BackgroundColorHover = &BackgroundColorHover;
+    Borders = &Borders;
     BorderColorDisabled = &BorderColorDisabled;
+    BorderColor = &BorderColor;
     BorderColorDown = &BorderColorDown;
     BorderColorFocused = &BorderColorFocused;
     BorderColorHover = &BorderColorHover;
+    TextColor = &TextColor;
     TextColorDown = &TextColorDown;
     RoundedBorderRadius = &RoundedBorderRadius;
 }
@@ -186,4 +193,10 @@ ChildWindow
     PaddingBetweenButtons = &PaddingBetweenButtons;
     TitleColor = &TitleColor;
     TitleBarColor = &TitleBarColor;
+
+    CloseButton = &Button;
+
+    MinimizeButton = &Button;
+
+    MaximizeButton = &Button;
 }
