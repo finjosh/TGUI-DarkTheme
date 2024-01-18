@@ -96,6 +96,19 @@ ComboBox
     Padding = &Padding;
 }
 
+CheckBox
+{
+    BackgroundColor = &BackgroundColor;
+    BackgroundColorDisabled = &BackgroundColorDisabled;
+    BackgroundColorHover = &BackgroundColorHover;
+    Borders = &Borders;
+    BorderColorDisabled = &BorderColorDisabled;
+    BorderColor = &BorderColor;
+    BorderColorFocused = &BorderColorFocused;
+    BorderColorHover = &BorderColorHover;
+    TextColor = &TextColor;
+}
+
 EditBox
 {
     Padding = &Padding;

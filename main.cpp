@@ -99,7 +99,7 @@ void runExample(tgui::Gui& gui)
 int main()
 {
     // setup for sfml and tgui
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Networking Library");
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "TGUI-Dark");
     window.setFramerateLimit(144);
     window.setPosition(Vector2i(-8, -8));
 
