@@ -59,7 +59,7 @@ TitleColor = White; // *
 
 // Miscellaneous
 HeaderBackgroundColor = rgb(25,25,25); // *
-Padding = 0; // *
+Padding = 3; // *
 PaddingBetweenButtons = 1; // *
 ButtonDistanceFromSide = 3; // *
 RoundedBorderRadius = 4; // *
@@ -84,6 +84,7 @@ Button {
 Panel
 {
     RoundedBorderRadius = &RoundedBorderRadius;
+    Padding = &Padding;
 }
 
 ChatBox
