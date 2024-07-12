@@ -8,7 +8,6 @@
 #include "TGUI/AllWidgets.hpp"
 
 using namespace std;
-using namespace sf;
 
 void runExample(tgui::Gui& gui)
 {
@@ -98,9 +97,20 @@ void runExample(tgui::Gui& gui)
     gui.getWidgets().back()->setPosition(500,375);
 }
 
-void makeAllWidgets(tgui::Gui& gui)
+void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
 {
     auto widgetHolder = tgui::HorizontalWrap::create();
+    auto themeSelector = tgui::ComboBox::create();
+    for (auto dir: std::filesystem::directory_iterator("themes"))
+    {
+        themeSelector->addItem(dir.path().generic_string());
+    }
+    themeSelector->onItemSelect([](tgui::String selected){
+        tgui::Theme::getDefault()->replace(selected);
+        tgui::Theme::getDefault()->replace(selected);
+    });
+    themeSelector->setSelectedItem(defaultTheme);
+    widgetHolder->add(themeSelector);
     auto scroll = tgui::ScrollablePanel::create();
     scroll->add(widgetHolder);
     widgetHolder->getRenderer()->setSpaceBetweenWidgets(10);
@@ -296,15 +306,14 @@ int main()
     // setup for sfml and tgui
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "TGUI-Dark");
     window.setFramerateLimit(144);
-    window.setPosition(Vector2i(-8, -8));
+    window.setPosition(sf::Vector2i(-8, -8));
 
     tgui::Gui gui{window};
     gui.setRelativeView({0, 0, 1920/(float)window.getSize().x, 1080/(float)window.getSize().y});
-    tgui::Theme::setDefault("themes/Dark.txt");
     // -----------------------
     
     // runExample(gui);
-    makeAllWidgets(gui);
+    makeAllWidgets(gui, "themes/Dark.txt");
 
     while (window.isOpen())
     {
