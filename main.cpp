@@ -1,5 +1,6 @@
 #include <iostream>
 #include <filesystem>
+#include <fstream>
 
 #include "SFML/Graphics.hpp"
 
@@ -9,93 +10,93 @@
 
 using namespace std;
 
-void runExample(tgui::Gui& gui)
-{
-    gui.add(tgui::BitmapButton::create("BitBtn"));
-    gui.getWidgets().back()->setPosition(10,10);
-    gui.add(tgui::Button::create("Button"));
-    gui.getWidgets().back()->setPosition(90,10);
-    gui.add(tgui::CheckBox::create("Check Box"));
-    gui.getWidgets().back()->setPosition(180,10);
-    gui.add(tgui::ChildWindow::create("Child Window"));
-    gui.getWidgets().back()->setPosition(10,210);
-    gui.getWidgets().back()->cast<tgui::ChildWindow>()->add(tgui::ListBox::create());
-    gui.add(tgui::ComboBox::create());
-    gui.getWidgets().back()->setPosition(310,10);
-    gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box");
-    gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box1");
-    gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box2");
-    gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box3");
-    gui.add(tgui::EditBox::create());
-    gui.getWidgets().back()->setPosition(10,600);
-    gui.getWidgets().back()->cast<tgui::EditBox>()->setDefaultText("Edit Box");
-    gui.add(tgui::FileDialog::create("File Dialog"));
-    gui.getWidgets().back()->setPosition(1100,200);
-    gui.add(tgui::Knob::create());
-    gui.getWidgets().back()->setPosition(300,50);
-    gui.add(tgui::Label::create("Label"));
-    gui.getWidgets().back()->setPosition(510,10);
-    gui.add(tgui::ListBox::create());
-    gui.getWidgets().back()->setPosition(470,50);
-    auto l = gui.getWidgets().back()->cast<tgui::ListBox>();
-    l->addItem("A Item");
-    l->addItem("A");
-    l->addItem("Item");
-    l->addItem("Another Item");
-    l->addItem("Some Item");
-    l->addItem("A Item");
-    l->addItem("A");
-    l->addItem("Item");
-    l->addItem("Another Item");
-    l->addItem("Some Item");
-    gui.add(tgui::ListView::create());
-    gui.getWidgets().back()->setPosition(470,210);
-    auto t = gui.getWidgets().back()->cast<tgui::ListView>();
-    t->addColumn("A Column");
-    t->addColumn("Another Column");
-    t->addColumn("Some Other Column");
-    t->addItem({"Some Random Item", "More than one column", "A Third"});
-    t->addItem({"Some Random Item2", "More than one column2", "A Third2"});
-    t->addItem({"Some Random Item3", "More than one column3", "A Third3"});
-    t->addItem({"Some Random Item4", "More than one column4", "A Third4"});
-    t->addItem({"Some Random Item5", "More than one column5", "A Third5"});
-    gui.add(tgui::ProgressBar::create());
-    gui.getWidgets().back()->setPosition(130,530);
-    gui.getWidgets().back()->cast<tgui::ProgressBar>()->setValue(30);
-    gui.add(tgui::RangeSlider::create());
-    gui.getWidgets().back()->setPosition(130,650);
-    gui.add(tgui::SeparatorLine::create());
-    gui.getWidgets().back()->setPosition(900,0);
-    gui.add(tgui::Slider::create());
-    gui.getWidgets().back()->setPosition(130,700);
-    gui.add(tgui::SpinControl::create());
-    gui.getWidgets().back()->setPosition(150,42);
-    gui.add(tgui::Tabs::create());
-    gui.getWidgets().back()->setPosition(680,120);
-    gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab");
-    gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab2");
-    gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab3");
-    gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab4");
-    gui.add(tgui::TextArea::create());
-    gui.getWidgets().back()->setPosition(470,600);
-    gui.getWidgets().back()->cast<tgui::TextArea>()->setDefaultText("Text Area");
-    gui.add(tgui::ToggleButton::create("Toggle Button"));
-    gui.getWidgets().back()->setPosition(130,790);
-    gui.add(tgui::TreeView::create());
-    gui.getWidgets().back()->setPosition(470,800);
-    auto temp = gui.getWidgets().back()->cast<tgui::TreeView>();
-    temp->addItem({"Tree", "Item", "Another Item"});
-    temp->addItem({"Tree", "Item2", "Another Item"});
-    temp->addItem({"Tree", "Something Else", "Another Item"});
-    temp->addItem({"Tree2", "Item1", "Another Item"});
-    temp->addItem({"Tree2", "Item4", "Another Item"});
-    temp->addItem({"Tree2", "Item6", "Why"});
-    gui.add(tgui::ScrollablePanel::create({"15%","15%"}));
-    gui.getWidgets().back()->setPosition(700,200);
-    gui.getWidgets().back()->cast<tgui::ScrollablePanel>()->add(tgui::FileDialog::create()); // Adding a bigger widget so the scroll bars show
-    gui.add(tgui::Panel::create({200,200}));
-    gui.getWidgets().back()->setPosition(500,375);
-}
+// void runExample(tgui::Gui& gui)
+// {
+//     gui.add(tgui::BitmapButton::create("BitBtn"));
+//     gui.getWidgets().back()->setPosition(10,10);
+//     gui.add(tgui::Button::create("Button"));
+//     gui.getWidgets().back()->setPosition(90,10);
+//     gui.add(tgui::CheckBox::create("Check Box"));
+//     gui.getWidgets().back()->setPosition(180,10);
+//     gui.add(tgui::ChildWindow::create("Child Window"));
+//     gui.getWidgets().back()->setPosition(10,210);
+//     gui.getWidgets().back()->cast<tgui::ChildWindow>()->add(tgui::ListBox::create());
+//     gui.add(tgui::ComboBox::create());
+//     gui.getWidgets().back()->setPosition(310,10);
+//     gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box");
+//     gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box1");
+//     gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box2");
+//     gui.getWidgets().back()->cast<tgui::ComboBox>()->addItem("Combo Box3");
+//     gui.add(tgui::EditBox::create());
+//     gui.getWidgets().back()->setPosition(10,600);
+//     gui.getWidgets().back()->cast<tgui::EditBox>()->setDefaultText("Edit Box");
+//     gui.add(tgui::FileDialog::create("File Dialog"));
+//     gui.getWidgets().back()->setPosition(1100,200);
+//     gui.add(tgui::Knob::create());
+//     gui.getWidgets().back()->setPosition(300,50);
+//     gui.add(tgui::Label::create("Label"));
+//     gui.getWidgets().back()->setPosition(510,10);
+//     gui.add(tgui::ListBox::create());
+//     gui.getWidgets().back()->setPosition(470,50);
+//     auto l = gui.getWidgets().back()->cast<tgui::ListBox>();
+//     l->addItem("A Item");
+//     l->addItem("A");
+//     l->addItem("Item");
+//     l->addItem("Another Item");
+//     l->addItem("Some Item");
+//     l->addItem("A Item");
+//     l->addItem("A");
+//     l->addItem("Item");
+//     l->addItem("Another Item");
+//     l->addItem("Some Item");
+//     gui.add(tgui::ListView::create());
+//     gui.getWidgets().back()->setPosition(470,210);
+//     auto t = gui.getWidgets().back()->cast<tgui::ListView>();
+//     t->addColumn("A Column");
+//     t->addColumn("Another Column");
+//     t->addColumn("Some Other Column");
+//     t->addItem({"Some Random Item", "More than one column", "A Third"});
+//     t->addItem({"Some Random Item2", "More than one column2", "A Third2"});
+//     t->addItem({"Some Random Item3", "More than one column3", "A Third3"});
+//     t->addItem({"Some Random Item4", "More than one column4", "A Third4"});
+//     t->addItem({"Some Random Item5", "More than one column5", "A Third5"});
+//     gui.add(tgui::ProgressBar::create());
+//     gui.getWidgets().back()->setPosition(130,530);
+//     gui.getWidgets().back()->cast<tgui::ProgressBar>()->setValue(30);
+//     gui.add(tgui::RangeSlider::create());
+//     gui.getWidgets().back()->setPosition(130,650);
+//     gui.add(tgui::SeparatorLine::create());
+//     gui.getWidgets().back()->setPosition(900,0);
+//     gui.add(tgui::Slider::create());
+//     gui.getWidgets().back()->setPosition(130,700);
+//     gui.add(tgui::SpinControl::create());
+//     gui.getWidgets().back()->setPosition(150,42);
+//     gui.add(tgui::Tabs::create());
+//     gui.getWidgets().back()->setPosition(680,120);
+//     gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab");
+//     gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab2");
+//     gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab3");
+//     gui.getWidgets().back()->cast<tgui::Tabs>()->add("Tab4");
+//     gui.add(tgui::TextArea::create());
+//     gui.getWidgets().back()->setPosition(470,600);
+//     gui.getWidgets().back()->cast<tgui::TextArea>()->setDefaultText("Text Area");
+//     gui.add(tgui::ToggleButton::create("Toggle Button"));
+//     gui.getWidgets().back()->setPosition(130,790);
+//     gui.add(tgui::TreeView::create());
+//     gui.getWidgets().back()->setPosition(470,800);
+//     auto temp = gui.getWidgets().back()->cast<tgui::TreeView>();
+//     temp->addItem({"Tree", "Item", "Another Item"});
+//     temp->addItem({"Tree", "Item2", "Another Item"});
+//     temp->addItem({"Tree", "Something Else", "Another Item"});
+//     temp->addItem({"Tree2", "Item1", "Another Item"});
+//     temp->addItem({"Tree2", "Item4", "Another Item"});
+//     temp->addItem({"Tree2", "Item6", "Why"});
+//     gui.add(tgui::ScrollablePanel::create({"15%","15%"}));
+//     gui.getWidgets().back()->setPosition(700,200);
+//     gui.getWidgets().back()->cast<tgui::ScrollablePanel>()->add(tgui::FileDialog::create()); // Adding a bigger widget so the scroll bars show
+//     gui.add(tgui::Panel::create({200,200}));
+//     gui.getWidgets().back()->setPosition(500,375);
+// }
 
 void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
 {
@@ -106,7 +107,6 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
         themeSelector->addItem(dir.path().generic_string());
     }
     themeSelector->onItemSelect([](tgui::String selected){
-        tgui::Theme::getDefault()->replace(selected);
         tgui::Theme::getDefault()->replace(selected);
     });
     themeSelector->setSelectedItem(defaultTheme);
@@ -122,8 +122,8 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
 
         auto panel = tgui::Panel::create();
         auto label = tgui::Label::create(widgetName);
-        label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
-        label->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
+        label->setHorizontalAlignment(tgui::HorizontalAlignment::Center);
+        label->setVerticalAlignment(tgui::VerticalAlignment::Center);
         panel->add(label);
         float temp = panel->getWidgets().back()->getSize().y;
         panel->add(tgui::WidgetFactory::getConstructFunction(widgetName)());
@@ -153,24 +153,41 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
         }
         else if (auto container = lastWidget->cast<tgui::Container>())
         {
+            int maxImages = INT_MAX;
+            if (widgetName == "SplitContainer")
+            {
+                maxImages = 2;
+            }
             if (widgetName != "ColorPicker" && widgetName != "FileDialog")
             for (auto file: std::filesystem::directory_iterator{"TestPhotos"})
             {
+                if (maxImages <= 0)
+                    break;
                 auto picture = tgui::Picture::create(tgui::Texture{file.path().generic_string()});
                 picture->setSize({100, 100*(picture->getSize().y/picture->getSize().x)});
                 container->add(picture); // can have many overlapping photos but we also want to show if the container sorts the widgets
-                container->updateChildrenWithAutoLayout();
-                float width = 0;
-                float height = 0;
-                for (auto widget: container->getWidgets())
+                
+                if (widgetName != "SplitContainer")
                 {
-                    if (widget->getFullSize().x > width)
-                        width = widget->getFullSize().x;
-                    float temp = widget->getPosition().y + widget->getFullSize().y;
-                    if (temp > height)
-                        height = temp;
+                    container->updateChildrenWithAutoLayout();
+                    float width = 0;
+                    float height = 0;
+                    for (auto widget: container->getWidgets())
+                    {
+                        if (widget->getFullSize().x > width)
+                            width = widget->getFullSize().x;
+                        float temp = widget->getPosition().y + widget->getFullSize().y;
+                        if (temp > height)
+                            height = temp;
+                    }
+                    container->setSize({width, height});
                 }
-                container->setSize({width, height});
+                else
+                {
+                    container->setSize("100%", container->getSize().y < picture->getSize().y ? picture->getSize().y : container->getSize().y);
+                }
+
+                maxImages--;
             }
         }
         else if (auto button = lastWidget->cast<tgui::Button>())
@@ -281,6 +298,8 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
             tree->addItem({"Why Cats?", "Cats are cool"});
         }
         
+        widgetHolder->add(panel);
+
         float width = 0;
         float height = 0;
         for (auto widget: panel->getWidgets())
@@ -291,8 +310,6 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
         }
         panel->setSize({width + panel->getSharedRenderer()->getPadding().getLeft() + panel->getSharedRenderer()->getPadding().getRight() + 5, 
                         height + panel->getSharedRenderer()->getPadding().getTop() + panel->getSharedRenderer()->getPadding().getBottom() + 5});
-
-        widgetHolder->add(panel);
     }
 
     widgetHolder->updateChildrenWithAutoLayout();
@@ -301,8 +318,94 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
     gui.add(scroll);
 }
 
+/// @brief creates the cpp class files for the given theme (assumes its loaded from a txt file)
+void createCppTheme(tgui::String name, tgui::Theme theme)
+{
+    std::string className = name.toStdString() + "Theme";
+
+    assert((!std::filesystem::exists(className + ".hpp")) && "Class already exists");
+
+    {
+    std::ofstream header(className + ".hpp");
+    header << "#ifndef " << name.toUpper().toStdString() << "_" << "THEME_HPP" << "\n#define " << name.toUpper() << "_" << "THEME_HPP" << "\n#pragma once"; // adding header define stuff
+    header << "\n#include \"TGUI/Loading/Theme.hpp\"" << "\nstruct " << className << " : tgui::Theme" << "{" << className << "();" << "};" << "\n"; // defining the class and its constructor
+    header << "#endif"; // end of head file
+    }
+
+    // making the cpp file
+    std::ofstream source(className + ".cpp");
+    source << "#include \"" << className << ".hpp" << "\"\n" << className << "::" << className << "()\n{"; // including and starting the constructor
+
+    std::map<tgui::String, tgui::ObjectConverter> globalProperties;
+
+    bool isFirst = true;
+
+    source << "m_renderers = {";
+    for (auto widgetName: tgui::WidgetFactory::getWidgetTypes())
+    {
+        std::map<tgui::String, tgui::ObjectConverter> properties;
+        try
+        {
+            properties = theme.getRenderer(widgetName)->propertyValuePairs;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            source << "})";
+        }
+
+        if (!isFirst)
+            source << ",";
+        else
+            isFirst = false;
+        source << "{\"" << widgetName.toStdString() << "\", tgui::RendererData::create({";
+
+        bool isFirst2 = true;
+
+        for (auto property: properties)
+        {
+            if (!isFirst2)
+                source << ",";
+            else
+                isFirst2 = false;
+            if (property.second.getType() == tgui::ObjectConverter::Type::RendererData)
+                continue;
+
+            if (theme.getGlobalProperty(property.first).getType() != tgui::ObjectConverter::Type::None)
+                globalProperties.emplace(property);
+
+            source << "{\"" << property.first << "\",\"" << property.second.getString().toStdString() << "\"}";
+        }
+
+        source << "})}";
+    }
+    source << "};";
+
+    isFirst = true;
+
+    source << "m_globalProperties = {";
+    for (auto property: globalProperties)
+    {
+        if (!isFirst)
+            source << ",";
+        else
+            isFirst = false;
+
+        source << "{\"" << property.first.toStdString() << "\",\"" << property.second.getString().toStdString() << "\"}";
+    }
+    source << "};";
+
+    source << "}"; // ending the constructor
+}
+
 int main()
 {
+    // tgui::Theme::getDefault()->load("themes/Light.txt");
+
+    // createCppTheme("Light", *tgui::Theme::getDefault().get());
+
+    // return EXIT_SUCCESS;
+
     // setup for sfml and tgui
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "TGUI-Dark");
     window.setFramerateLimit(144);
@@ -326,7 +429,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        
+
         auto temp = sf::RectangleShape({10000,10000});
         temp.setFillColor(sf::Color(100,100,100));
         window.draw(temp);

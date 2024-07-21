@@ -62,7 +62,7 @@ HeaderBackgroundColor = rgb(25,25,25); // *
 Padding = 3; // *
 PaddingBetweenButtons = 1; // *
 ButtonDistanceFromSide = 3; // *
-RoundedBorderRadius = 4; // *
+RoundedBorderRadius = 6; // *
 
 Button {
     BackgroundColor = &BackgroundColor;
@@ -207,10 +207,22 @@ ChildWindow
     PaddingBetweenButtons = &PaddingBetweenButtons;
     TitleColor = &TitleColor;
     TitleBarColor = &TitleBarColor;
+}
 
-    CloseButton = &Button;
-
-    MinimizeButton = &Button;
-
-    MaximizeButton = &Button;
+ChildWindowButton
+{
+    BackgroundColor = &BackgroundColor;
+    BackgroundColorDisabled = &BackgroundColorDisabled;
+    BackgroundColorDown = &BackgroundColorDown;
+    BackgroundColorDownHover = &BackgroundColorDownHover;
+    BackgroundColorHover = &BackgroundColorHover;
+    Borders = &Borders;
+    BorderColorDisabled = &BorderColorDisabled;
+    BorderColor = &BorderColor;
+    BorderColorDown = &BorderColorDown;
+    BorderColorFocused = &BorderColorFocused;
+    BorderColorHover = &BorderColorHover;
+    TextColor = &TextColor;
+    TextColorDown = &TextColorDown;
+    RoundedBorderRadius = &RoundedBorderRadius;
 }
