@@ -158,6 +158,8 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
             {
                 maxImages = 2;
             }
+            if (widgetName == "ChildWindow")
+                container->cast<tgui::ChildWindow>()->setTitleButtons(tgui::ChildWindow::TitleButton::Close | tgui::ChildWindow::TitleButton::Maximize | tgui::ChildWindow::TitleButton::Minimize);
             if (widgetName != "ColorPicker" && widgetName != "FileDialog")
             for (auto file: std::filesystem::directory_iterator{"TestPhotos"})
             {
@@ -318,9 +320,19 @@ void makeAllWidgets(tgui::Gui& gui, const std::string& defaultTheme)
     gui.add(scroll);
 }
 
-/// @brief creates the cpp class files for the given theme (assumes its loaded from a txt file)
-void createCppTheme(tgui::String name, tgui::Theme theme)
+void createCppTheme(const std::string& themePath)
 {
+    tgui::Theme theme;
+    try
+    {
+        theme.load(themePath);
+    }
+    catch(const std::exception& e)
+    {
+        throw std::runtime_error("Theme path does not store a theme");
+    }
+
+    tgui::String name = std::filesystem::path(themePath).filename().replace_extension("").generic_string();
     std::string className = name.toStdString() + "Theme";
 
     assert((!std::filesystem::exists(className + ".hpp")) && "Class already exists");
@@ -328,6 +340,7 @@ void createCppTheme(tgui::String name, tgui::Theme theme)
     {
     std::ofstream header(className + ".hpp");
     header << "#ifndef " << name.toUpper().toStdString() << "_" << "THEME_HPP" << "\n#define " << name.toUpper() << "_" << "THEME_HPP" << "\n#pragma once"; // adding header define stuff
+    header << "/// @brief this is the same theme that is stored in the txt file\n/// @note this is so that your program does not require any extra external dependencies like txt files";
     header << "\n#include \"TGUI/Loading/Theme.hpp\"" << "\nstruct " << className << " : tgui::Theme" << "{" << className << "();" << "};" << "\n"; // defining the class and its constructor
     header << "#endif"; // end of head file
     }
@@ -335,8 +348,6 @@ void createCppTheme(tgui::String name, tgui::Theme theme)
     // making the cpp file
     std::ofstream source(className + ".cpp");
     source << "#include \"" << className << ".hpp" << "\"\n" << className << "::" << className << "()\n{"; // including and starting the constructor
-
-    std::map<tgui::String, tgui::ObjectConverter> globalProperties;
 
     bool isFirst = true;
 
@@ -368,13 +379,8 @@ void createCppTheme(tgui::String name, tgui::Theme theme)
                 source << ",";
             else
                 isFirst2 = false;
-            if (property.second.getType() == tgui::ObjectConverter::Type::RendererData)
-                continue;
 
-            if (theme.getGlobalProperty(property.first).getType() != tgui::ObjectConverter::Type::None)
-                globalProperties.emplace(property);
-
-            source << "{\"" << property.first << "\",\"" << property.second.getString().toStdString() << "\"}";
+            source << "{\"" << property.first << "\",\"" <<  std::regex_replace(property.second.getString().toStdString(), std::regex("\n"), "\\n") << "\"}";
         }
 
         source << "})}";
@@ -384,25 +390,25 @@ void createCppTheme(tgui::String name, tgui::Theme theme)
     isFirst = true;
 
     source << "m_globalProperties = {";
-    for (auto property: globalProperties)
+    for (auto property: tgui::Theme::getThemeLoader()->getGlobalProperties(themePath))
     {
         if (!isFirst)
             source << ",";
         else
             isFirst = false;
 
-        source << "{\"" << property.first.toStdString() << "\",\"" << property.second.getString().toStdString() << "\"}";
+        source << "{\"" << property.first.toStdString() << "\",\"" << std::regex_replace(property.second.toStdString(), std::regex("\n"), "\\n") << "\"}";
     }
     source << "};";
 
     source << "}"; // ending the constructor
 }
 
+#include "DarkTheme.hpp"
 int main()
 {
-    // tgui::Theme::getDefault()->load("themes/Light.txt");
-
-    // createCppTheme("Light", *tgui::Theme::getDefault().get());
+    // createCppTheme("themes/Light.txt");
+    // createCppTheme("themes/Dark.txt");
 
     // return EXIT_SUCCESS;
 
@@ -416,17 +422,17 @@ int main()
     // -----------------------
     
     // runExample(gui);
-    makeAllWidgets(gui, "themes/Dark.txt");
+    makeAllWidgets(gui, "");
+    tgui::Theme::getDefault()->replace(DarkTheme());
 
     while (window.isOpen())
     {
         window.clear();
-        sf::Event event;
-        while (window.pollEvent(event))
+        while (const std::optional<sf::Event> event = window.pollEvent())
         {
-            gui.handleEvent(event);
+            gui.handleEvent(event.value());
 
-            if (event.type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
                 window.close();
         }
 

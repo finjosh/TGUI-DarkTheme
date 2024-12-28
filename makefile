@@ -7,18 +7,20 @@ PROJECT:=main
 # the directory in which all .o and .d files will be made
 OBJ_O_DIR:=bin
 # the include flags for compilation by default includes the project directory and include directory
-INCLUDE_DIRS=/VSCodeFolder/Libraries/SFML-2.6.1/include /VSCodeFolder/Libraries/TGUI-1.4/include
+INCLUDE_DIRS=/VSCodeFolder/Libraries/SFML-3.0.0/include /VSCodeFolder/Libraries/TGUI-1.7/include ${PROJECT_DIR_TEMP}/include
 # extra include flags
 INCLUDE_FLAGS=-D SFML_STATIC
 # the paths to libs for linking
-LIB_DIRS=/VSCodeFolder/Libraries/SFML-2.6.1/lib /VSCodeFolder/Libraries/TGUI-1.4/lib
+LIB_DIRS=/VSCodeFolder/Libraries/SFML-3.0.0/lib /VSCodeFolder/Libraries/TGUI-1.7/lib
 # source files directory (the project directory is automatically added)
 SRC:=src
 # the directory for lib files that are made with "make lib"
 # this should be the full path
-LIB_DIR:=${PROJECT_DIR_TEMP}/libs
+# this can NOT be "libs"
+LIB_DIR:=lib
 # the directory where all the source files that you want in the lib are
 LIB_SOURCE:=src
+LIB_NAME:=libdark_light_theme
 
 # compiler command
 CC:=g++
@@ -27,8 +29,9 @@ CC:=g++
 LINKERFLAGS:=-ltgui-s -lsfml-graphics-s -lsfml-window-s \
 			-lsfml-system-s -lsfml-audio-s -lsfml-network-s \
 			-lws2_32 -lflac -lvorbisenc -lvorbisfile -lvorbis \
-			-logg -lopenal32 -lopengl32 -lwinmm -lgdi32 -lfreetype \
-			-lstdc++
+			-logg -lopengl32 -lwinmm -lgdi32 -lfreetype \
+			-lstdc++ \
+			#-mwindows
 # flags to generate dependencies for all .o files
 DEPFLAGS:=-MP -MD
 # any compiler options
@@ -89,8 +92,8 @@ ${PROJECT_DIR}/${OBJ_O_DIR}%.o:${PROJECT_DIR}%.cpp
 	${CC} ${COMPILE_OPTIONS} ${INCLUDES} ${DEPFLAGS} -c -o ${@} ${<}
 
 # build the lib with the same compile options
-lib: ${BIN_DIRS} ${LIB_DIR} ${LIBOBJECTS}
-	ar rcs $(call FIXPATH,${PROJECT_DIR}/${LIB_DIR}/${PROJECT}.a) ${LIBOBJECTS}
+libs: ${BIN_DIRS} ${LIB_DIR} ${LIBOBJECTS}
+	ar rcs $(call FIXPATH,${PROJECT_DIR}/${LIB_DIR}/${LIB_NAME}.a) ${LIBOBJECTS}
 	@echo Libs created
 
 # include the dependencies
