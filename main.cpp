@@ -7,6 +7,7 @@
 #include "TGUI/TGUI.hpp"
 #include "TGUI/Backend/SFML-Graphics.hpp"
 #include "TGUI/AllWidgets.hpp"
+#include <climits>
 
 using namespace std;
 
@@ -404,7 +405,7 @@ void createCppTheme(const std::string& themePath)
     source << "}"; // ending the constructor
 }
 
-#include "DarkTheme.hpp"
+#include "TGUIThemes/DarkTheme.hpp"
 int main()
 {
     // createCppTheme("themes/Light.txt");
