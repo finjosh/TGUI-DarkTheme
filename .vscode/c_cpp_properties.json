@@ -5,7 +5,8 @@
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/include",
-                "/VSCodeFolder/Libraries/TGUI-1.7/include"
+                "/dev-env/libraries/windows/TGUI-1.8.0/include",
+                "/dev-env/libraries/windows/SFML-3.0.0/include"
             ],
             "defines": [
                 "_DEBUG",
