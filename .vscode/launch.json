@@ -5,17 +5,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug",
+            "name": "Debug - Win32",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\main.exe",
+            "program": "${workspaceFolder}\\utils.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "\\VSCodeFolder\\MSYS2\\mingw64\\bin\\gdb.exe",
+            "miDebuggerPath": "V:\\dev-env\\MSYS2\\ucrt64\\bin\\gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug - Linux",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/bin/gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

@@ -2,15 +2,18 @@
 TGUI "Texus' Graphical User Interface" ([TGUI](https://tgui.eu/))
 
 ### Tested with: 
-  - Compiler: g++
-  - Version: g++.exe (Rev2, Built by MSYS2 project) 14.2.0
-  - To use the prebuilt libs you have to use the ucrt MSYS2 mingw build for g++ 14.2.0
+#### Linux:
+    - Compiler: g++
+    - Version: g++ (GCC) 15.1.1 20250425
+#### Windows:
+    - Compiler: x86_64-w64-mingw32-g++
+    - Version: x86_64-w64-mingw32-g++ (GCC) 15.1.0
 
 ### [SFML](https://www.sfml-dev.org/index.php)
   - Version: 3.0.0
 
 ### [TGUI](https://tgui.eu/)
-  - Version: 1.7
+  - Version: 1.9.0
 
 Although this project is called TGUI-DarkTheme, there is also an equivalent Light Theme, the only difference being the colours. Padding, borders, etc. are the same.
 
