@@ -1,3 +1,6 @@
 bin
 main.exe
 main
+lib
+compile_commands.json
+.cache
